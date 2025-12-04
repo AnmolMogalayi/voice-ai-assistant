@@ -1,47 +1,43 @@
-![Voice AI Assistant Banner](https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif)
-
-# 🎙️ AI Voice Assistant — Real-Time (Ears → Brain → Mouth)
+# 🎙️ AI Voice Assistant — Real-Time Voice AI (Ears → Brain → Mouth)
 
 **A lightweight, privacy-first voice assistant** that listens to you, thinks locally using a Llama 3 model (via Ollama), and speaks back — all running on your machine. This notebook-based project is perfect for quick experiments, demos, and local offline assistants. ✨
 
 ---
 
-**Table of Contents**
-- **Project Overview**
-- **Animated Preview**
-- **Features**
-- **Requirements**
-- **Installation**
-- **Usage**
-- **Notebook Walkthrough**
-- **Files**
-- **Future Enhancements**
-- **Contributing & License**
-- **Push to GitHub**
+## 📑 Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Notebook Walkthrough](#notebook-walkthrough)
+- [Project Files](#project-files)
+- [Future Enhancements](#future-enhancements)
+- [Contributing & License](#contributing--license)
 
 ---
 
-**Project Overview**
-- **What:** A Python Jupyter Notebook that wires up speech recognition → LLM inference (local Llama 3 via Ollama) → text-to-speech.
-- **Why:** Build a private, offline-capable voice assistant prototype that you can improve and extend.
-- **Who:** Great for hobbyists, researchers, and devs experimenting with local LLMs and voice UX.
+## 🎯 Project Overview
 
-**Animated Preview**
-- Replace the preview below with your own recorded GIF for best presentation (use an animated GIF showing the assistant running):
+**What:** A Python Jupyter Notebook that wires up speech recognition → LLM inference (local Llama 3 via Ollama) → text-to-speech.
 
-![Animated Preview](https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif)
+**Why:** Build a private, offline-capable voice assistant prototype that you can improve and extend.
+
+**Who:** Great for hobbyists, researchers, and devs experimenting with local LLMs and voice UX.
 
 ---
 
-**Features**
-- **Listen:** Uses `SpeechRecognition` and your system microphone to capture and transcribe audio. 🎧
-- **Think:** Calls Ollama (`ollama.chat`) to query a local Llama 3 model for responses. 🧠
-- **Speak:** Uses `pyttsx3` for platform TTS (SAPI5 on Windows). 🗣️
-- **Looping Assistant:** Always-on Listen → Think → Speak loop with graceful exit keywords.
+## ✨ Features
+
+- **🎧 Listen:** Uses `SpeechRecognition` and your system microphone to capture and transcribe audio.
+- **🧠 Think:** Calls Ollama (`ollama.chat`) to query a local Llama 3 model for responses.
+- **🗣️ Speak:** Uses `pyttsx3` for platform TTS (SAPI5 on Windows, NSS on macOS, eSpeak on Linux).
+- **🔄 Looping Assistant:** Always-on Listen → Think → Speak loop with graceful exit keywords (`exit`, `stop`, `quit`).
 
 ---
 
-**Requirements**
+## 📋 Requirements
+
 - **OS:** Windows / macOS / Linux (microphone support required)
 - **System tools:** `Ollama` desktop app/CLI installed and running
 - **Model:** `llama3` pulled locally via Ollama (`ollama pull llama3`)
@@ -53,113 +49,155 @@
 
 ---
 
-**Installation**
-- Open PowerShell and run (recommended within a venv):
+## 🚀 Installation
 
+### Step 1: Clone or Download the Repository
+```powershell
+git clone https://github.com/AnmolMogalayi/voice-ai-assistant.git
+cd voice-ai-assistant
+```
+
+### Step 2: Create Virtual Environment (Optional but Recommended)
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
+```
+
+### Step 3: Install Python Dependencies
+```powershell
 pip install -r requirements.txt
 ```
 
-- If `pyaudio` fails on Windows, install `pipwin` then `pipwin install pyaudio`:
-
+### Step 4: Handle PyAudio on Windows (if needed)
+If `pyaudio` fails to install, use `pipwin`:
 ```powershell
 pip install pipwin
 pipwin install pyaudio
 ```
 
-- Install Ollama (download from https://ollama.ai/) and pull Llama 3:
-
+### Step 5: Install Ollama & Llama 3
+- Download Ollama from https://ollama.ai/
+- Install and run it
+- Pull the Llama 3 model:
 ```powershell
 ollama pull llama3
 ```
 
 ---
 
-**Usage**
-- Open the notebook `Voice_AI_Assistant.ipynb` in JupyterLab/Notebook and run cells in order.
-- In the final code cell, uncomment `main()` and run it to start the assistant:
+## 💡 Usage
 
-```python
-main()  # start the Listen -> Think -> Speak loop
+### Option 1: Run via Jupyter Notebook (Recommended for Learning)
+```powershell
+jupyter notebook Voice_AI_Assistant.ipynb
 ```
+Then run cells in order and uncomment `main()` in the final cell.
 
-- Speak to the mic. Say `exit`, `stop`, or `quit` to end the session.
-
-**Run as script (optional)**
-- You can extract the notebook code into `assistant.py` and run:
-
+### Option 2: Run as Python Script
 ```powershell
 python assistant.py
 ```
 
-Make sure Ollama is running and the `llama3` model is available.
+### How to Use the Assistant
+1. Run the script/notebook
+2. Wait for "Hello, I am ready. You can start speaking."
+3. Speak into your microphone
+4. The assistant will transcribe, think, and respond
+5. Say `exit`, `stop`, or `quit` to end the session
 
 ---
 
-**Notebook Walkthrough (Quick)**
-- **Cell 1:** Install packages (this notebook includes an automated `pip install` step).
-- **Cell 2:** Imports (`speech_recognition`, `ollama`, `pyttsx3`).
-- **Cell 3:** `listen()` — captures microphone audio and transcribes via Google Web Speech.
-- **Cell 4:** `think()` — sends text to `ollama.chat` (model: `llama3`).
-- **Cell 5:** `speak()` — uses `pyttsx3` to speak text.
-- **Cell 6:** `main()` — orchestrates the loop.
+## 📖 Notebook Walkthrough
+
+| Cell | Purpose |
+|------|---------|
+| 1 | **Install Packages** - Automated pip install for all dependencies |
+| 2 | **Import Libraries** - `speech_recognition`, `ollama`, `pyttsx3` |
+| 3 | **`listen()`** - Captures microphone audio and transcribes via Google Web Speech |
+| 4 | **`think()`** - Sends text to `ollama.chat` (model: `llama3`) |
+| 5 | **`speak()`** - Uses `pyttsx3` to convert text to speech |
+| 6 | **`main()`** - Orchestrates the complete Listen → Think → Speak loop |
 
 ---
 
-**Files**
-- `Voice_AI_Assistant.ipynb` — main notebook with full implementation.
-- `README.md` — this file (project overview & usage).
-- `requirements.txt` — Python dependencies.
+## 📁 Project Files
+
+| File | Description |
+|------|-------------|
+| `Voice_AI_Assistant.ipynb` | Main Jupyter Notebook with full implementation and step-by-step walkthrough |
+| `assistant.py` | Standalone Python script runner (can be used as a module or CLI) |
+| `README.md` | Project documentation (this file) |
+| `requirements.txt` | Python package dependencies |
+| `.gitignore` | Git ignore rules for Python and Jupyter projects |
 
 ---
 
-**Future Enhancements**
-- **Wake-word detection:** Add an always-listening hotword (e.g., `snowboy` or `Porcupine`) to avoid full-time recording. 🔔
-- **Streaming STT:** Integrate a low-latency streaming STT engine for faster responsiveness. ⚡
-- **Better TTS:** Add high-quality TTS (e.g., Coqui TTS, Edge TTS, or ElevenLabs) with voice profiles. 🎙️
-- **Multi-turn memory:** Add short-term memory and conversation context handling. 🧾
-- **Action hooks:** Integrate calendar, email, or system-control plugins for actionable responses. 🔌
-- **Web UI:** Add a small web dashboard to visualize transcripts and audio, and to replay sessions with animated waveforms. 🌐
+## 🔮 Future Enhancements
+
+- **🔔 Wake-word detection:** Add always-listening hotword (e.g., `Porcupine` or `Snowboy`) to avoid full-time recording
+- **⚡ Streaming STT:** Integrate low-latency streaming speech-to-text for faster responsiveness
+- **🎤 Better TTS:** Add high-quality TTS engines (Coqui TTS, Edge TTS, or ElevenLabs) with voice profiles
+- **🧾 Multi-turn memory:** Add conversation context and short-term memory handling
+- **🔌 Action hooks:** Integrate calendar, email, or system-control plugins for actionable responses
+- **🌐 Web UI:** Build a web dashboard to visualize transcripts, manage settings, and replay sessions
+- **📊 Metrics:** Add logging and analytics to track assistant performance
+- **🎓 Fine-tuning:** Allow custom Ollama model fine-tuning for domain-specific responses
 
 ---
 
-**Contributing & License**
-- **How to contribute:** Fork, add improvements, and send a PR. Open issues for feature requests or bugs.
-- **License:** MIT — feel free to reuse and extend.
+## 🤝 Contributing & License
+
+**How to contribute:**
+- Fork the repository
+- Create a feature branch (`git checkout -b feature/my-feature`)
+- Commit changes (`git commit -m "Add my feature"`)
+- Push to branch (`git push origin feature/my-feature`)
+- Open a Pull Request
+
+**License:** MIT — Feel free to reuse, modify, and distribute this project!
 
 ---
 
-**Push to GitHub**
-- Quick steps to push this project (PowerShell):
+## ❓ Troubleshooting
 
+### Issue: "No module named 'pyaudio'"
+**Solution:** Use `pipwin` on Windows:
 ```powershell
-# Initialize if not a git repo
-git init
-git add .
-git commit -m "Initial: Voice AI Assistant notebook + README"
-# Add your remote (replace URL below)
-git remote add origin https://github.com/your-username/your-repo.git
-# Push to GitHub (main branch)
-git branch -M main
-git push -u origin main
+pip install pipwin
+pipwin install pyaudio
 ```
 
-- If you already have a repo on GitHub, replace the remote URL with your repo's URL.
+### Issue: "Ollama is not running"
+**Solution:** Start Ollama application or run `ollama serve` in terminal
+
+### Issue: "Model 'llama3' not found"
+**Solution:** Pull the model:
+```powershell
+ollama pull llama3
+```
+
+### Issue: Microphone not detected
+**Solution:** Check system settings and ensure microphone is enabled and configured as default input device
+
+### Issue: Speech recognition not working
+**Solution:** Ensure internet connection (Google Web Speech API requires it)
 
 ---
 
-**Animated Design Tips**
-- Use a short animated GIF (3–6s) showing the assistant in action — insert it at the top of the README.
-- Create a small GIF using `recordmydesktop` or an online screen recorder showing the notebook running and the assistant speaking.
-- Add a GitHub Action that regenerates a preview GIF or runs a short smoke test for demos.
+## 📧 Contact & Support
+
+For issues, feature requests, or questions:
+- Open an [Issue](https://github.com/AnmolMogalayi/voice-ai-assistant/issues) on GitHub
+- Visit the repository: https://github.com/AnmolMogalayi/voice-ai-assistant
 
 ---
 
-If you want, I can:
-- create a `requirements.txt` for you now,
-- add a simple `.gitignore`,
-- or prepare a lightweight `assistant.py` runner script extracted from the notebook.
+## 🙏 Acknowledgments
 
-Which would you like me to do next? 🚀
+Built with ❤️ using:
+- [SpeechRecognition](https://github.com/Uberi/speech_recognition) - Speech-to-Text
+- [Ollama](https://ollama.ai/) - Local LLM inference
+- [pyttsx3](https://github.com/nateshmbhat/pyttsx3) - Text-to-Speech
+- [Llama 3](https://llama.meta.com/) - Local language model
+
+Happy coding! 🚀
